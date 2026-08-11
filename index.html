@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garz Manager</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
+
+<header>
+  <a href="/" class="logo">
+    <img src="assets/garz logo.png" alt="Garz Logo">
+  </a>
+</header>
 
 <body>
 
@@ -68,11 +73,11 @@
     <!-- MAIN -->
     <main class="main">
 
-        <!-- TOPBAR -->
         <header class="topbar">
 
             <div>
                 <h2 id="page-title">Dashboard</h2>
+
                 <p id="page-description">
                     Here's what's happening with your business.
                 </p>
@@ -94,7 +99,7 @@
         </header>
 
 
-        <!-- ================= DASHBOARD ================= -->
+        <!-- DASHBOARD -->
 
         <section class="page active" id="dashboard-page">
 
@@ -128,7 +133,7 @@
                         <div class="stat-icon green">€</div>
                     </div>
 
-                    <strong id="stat-revenue">€0</strong>
+                    <strong id="stat-revenue">€0.00</strong>
                     <small>Total paid</small>
                 </div>
 
@@ -148,7 +153,6 @@
 
             <div class="dashboard-grid">
 
-                <!-- ORDERS -->
                 <div class="card">
 
                     <div class="card-header">
@@ -167,7 +171,6 @@
                 </div>
 
 
-                <!-- DEADLINES -->
                 <div class="card">
 
                     <div class="card-header">
@@ -183,8 +186,6 @@
 
             </div>
 
-
-            <!-- QUICK ACTIONS -->
 
             <div class="card quick-actions-card">
 
@@ -219,7 +220,7 @@
         </section>
 
 
-        <!-- ================= ORDERS ================= -->
+        <!-- ORDERS -->
 
         <section class="page" id="orders-page">
 
@@ -249,15 +250,13 @@
             </div>
 
             <div class="card">
-
                 <div id="orders-table"></div>
-
             </div>
 
         </section>
 
 
-        <!-- ================= CLIENTS ================= -->
+        <!-- CLIENTS -->
 
         <section class="page" id="clients-page">
 
@@ -284,7 +283,7 @@
         </section>
 
 
-        <!-- ================= CALENDAR ================= -->
+        <!-- CALENDAR -->
 
         <section class="page" id="calendar-page">
 
@@ -317,7 +316,7 @@
         </section>
 
 
-        <!-- ================= ANALYTICS ================= -->
+        <!-- ANALYTICS -->
 
         <section class="page" id="analytics-page">
 
@@ -335,7 +334,7 @@
 
                 <div class="stat-card">
                     <span>Average Order</span>
-                    <strong id="analytics-average">€0</strong>
+                    <strong id="analytics-average">€0.00</strong>
                 </div>
 
                 <div class="stat-card">
@@ -384,7 +383,7 @@
 </div>
 
 
-<!-- ================= MODAL ================= -->
+<!-- MODAL -->
 
 <div class="modal-overlay" id="modal-overlay">
 
@@ -394,7 +393,7 @@
 
             <div>
                 <h3 id="modal-title">New Order</h3>
-                <p>Create something new</p>
+                <p id="modal-subtitle">Create something new</p>
             </div>
 
             <button class="close-btn" id="close-modal">
@@ -407,6 +406,8 @@
         <!-- ORDER FORM -->
 
         <form id="order-form">
+
+            <input type="hidden" id="editing-order-id">
 
             <div class="form-grid">
 
@@ -474,6 +475,21 @@
 
 
             <label>
+                Status
+
+                <select id="order-status">
+                    <option>Inquiry</option>
+                    <option>Accepted</option>
+                    <option>In Progress</option>
+                    <option>Review</option>
+                    <option>Revisions</option>
+                    <option>Completed</option>
+                    <option>Paid</option>
+                </select>
+            </label>
+
+
+            <label>
                 Description
 
                 <textarea
@@ -506,6 +522,7 @@
                 <button
                     type="submit"
                     class="primary-btn"
+                    id="order-submit-btn"
                 >
                     Create Order
                 </button>
@@ -518,6 +535,8 @@
         <!-- CLIENT FORM -->
 
         <form id="client-form" class="hidden">
+
+            <input type="hidden" id="editing-client-id">
 
             <label>
                 Name
@@ -575,6 +594,7 @@
                 <button
                     type="submit"
                     class="primary-btn"
+                    id="client-submit-btn"
                 >
                     Add Client
                 </button>
