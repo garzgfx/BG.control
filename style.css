@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-.logo img {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-}
-
 :root {
     --bg: #08090c;
     --surface: #0e1015;
