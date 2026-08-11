@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+.logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
 :root {
     --bg: #08090c;
     --surface: #0e1015;
     --surface-2: #13161d;
     --surface-3: #181b23;
-
     --border: #222631;
 
     --text: #f5f7fb;
@@ -32,11 +37,10 @@ body {
     background:
         radial-gradient(
             circle at 80% -20%,
-            rgba(139, 92, 246, .13),
+            rgba(139,92,246,.13),
             transparent 35%
         ),
         var(--bg);
-
     font-family: Inter, sans-serif;
 }
 
@@ -45,21 +49,15 @@ input,
 select,
 textarea {
     font: inherit;
+    outline: none;
 }
 
 button {
     cursor: pointer;
 }
 
-button,
-input,
-select,
-textarea {
-    outline: none;
-}
 
-
-/* ================= SIDEBAR ================= */
+/* SIDEBAR */
 
 .sidebar {
     position: fixed;
@@ -69,7 +67,7 @@ textarea {
 
     width: 235px;
 
-    background: rgba(10, 11, 15, .95);
+    background: rgba(10,11,15,.95);
     border-right: 1px solid var(--border);
 
     padding: 24px 14px;
@@ -107,7 +105,7 @@ textarea {
         );
 
     box-shadow:
-        0 8px 30px rgba(139, 92, 246, .28);
+        0 8px 30px rgba(139,92,246,.28);
 }
 
 .brand h1 {
@@ -133,7 +131,6 @@ nav {
 
 .nav-item {
     border: 0;
-
     background: transparent;
     color: #9299a8;
 
@@ -212,11 +209,10 @@ nav {
 }
 
 
-/* ================= MAIN ================= */
+/* MAIN */
 
 .main {
     margin-left: 235px;
-
     min-height: 100vh;
 
     padding: 30px 32px;
@@ -254,7 +250,7 @@ nav {
 }
 
 
-/* ================= BUTTONS ================= */
+/* BUTTONS */
 
 .primary-btn,
 .secondary-btn {
@@ -313,11 +309,10 @@ kbd {
 }
 
 
-/* ================= PAGES ================= */
+/* PAGES */
 
 .page {
     display: none;
-
     animation: appear .18s ease;
 }
 
@@ -338,13 +333,11 @@ kbd {
 }
 
 
-/* ================= STATS ================= */
+/* STATS */
 
 .stats-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
+    grid-template-columns: repeat(4,1fr);
 
     gap: 13px;
 
@@ -364,7 +357,6 @@ kbd {
 .stat-card > span,
 .stat-top span {
     color: var(--muted);
-
     font-size: 11px;
 }
 
@@ -427,7 +419,7 @@ kbd {
 }
 
 
-/* ================= CARDS ================= */
+/* CARDS */
 
 .card {
     background: rgba(14,16,21,.88);
@@ -451,7 +443,6 @@ kbd {
 
 .card-header h3 {
     margin: 0;
-
     font-size: 13px;
 }
 
@@ -476,13 +467,12 @@ kbd {
 }
 
 
-/* ================= DASHBOARD ================= */
+/* DASHBOARD */
 
 .dashboard-grid {
     display: grid;
 
-    grid-template-columns:
-        1.5fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
 
     gap: 14px;
 
@@ -496,8 +486,7 @@ kbd {
 .quick-actions {
     display: grid;
 
-    grid-template-columns:
-        repeat(3, 1fr);
+    grid-template-columns: repeat(3,1fr);
 
     gap: 10px;
 
@@ -536,13 +525,12 @@ kbd {
 }
 
 
-/* ================= ORDERS ================= */
+/* ORDER ROWS */
 
 .order-row {
     display: grid;
 
-    grid-template-columns:
-        1.4fr 1fr 110px 80px;
+    grid-template-columns: 1.4fr 1fr 110px 80px auto;
 
     align-items: center;
 
@@ -574,6 +562,66 @@ kbd {
     font-size: 12px;
     font-weight: 800;
 }
+
+.status-select {
+    padding: 6px 8px;
+
+    border-radius: 7px;
+
+    background: var(--surface-2);
+
+    border: 1px solid var(--border);
+
+    color: #c8ced8;
+
+    font-size: 9px;
+
+    max-width: 120px;
+}
+
+
+/* ORDER ACTIONS */
+
+.order-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.icon-btn {
+    width: 30px;
+    height: 30px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    background: var(--surface-2);
+
+    color: #aeb4c1;
+
+    font-size: 12px;
+
+    transition: .15s;
+}
+
+.icon-btn:hover {
+    border-color: #3b4050;
+    color: white;
+}
+
+.icon-btn.delete:hover {
+    border-color: rgba(255,91,110,.4);
+
+    background: rgba(255,91,110,.08);
+
+    color: var(--red);
+}
+
+
+/* STATUS */
 
 .status {
     display: inline-block;
@@ -621,11 +669,10 @@ kbd {
 }
 
 
-/* ================= TOOLS ================= */
+/* TOOLS */
 
 .page-tools {
     display: flex;
-
     gap: 10px;
 
     margin-bottom: 15px;
@@ -682,13 +729,12 @@ textarea {
 }
 
 
-/* ================= CLIENTS ================= */
+/* CLIENTS */
 
 .clients-grid {
     display: grid;
 
-    grid-template-columns:
-        repeat(3, 1fr);
+    grid-template-columns: repeat(3,1fr);
 
     gap: 13px;
 }
@@ -707,7 +753,6 @@ textarea {
 
 .client-card:hover {
     transform: translateY(-2px);
-
     border-color: #343946;
 }
 
@@ -731,7 +776,6 @@ textarea {
 
 .client-card h3 {
     margin: 0;
-
     font-size: 13px;
 }
 
@@ -760,8 +804,24 @@ textarea {
     font-size: 9px;
 }
 
+.client-actions {
+    display: flex;
 
-/* ================= CALENDAR ================= */
+    gap: 7px;
+
+    margin-top: 16px;
+
+    padding-top: 13px;
+
+    border-top: 1px solid var(--border);
+}
+
+.client-actions button {
+    flex: 1;
+}
+
+
+/* CALENDAR */
 
 .calendar-header {
     display: flex;
@@ -774,7 +834,6 @@ textarea {
 
 .calendar-header h3 {
     margin: 0;
-
     font-size: 15px;
 }
 
@@ -794,14 +853,11 @@ textarea {
 .calendar-weekdays,
 .calendar-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(7, 1fr);
+    grid-template-columns: repeat(7,1fr);
 }
 
 .calendar-weekdays {
     padding: 0 15px;
-
     border-bottom: 1px solid var(--border);
 }
 
@@ -817,7 +873,6 @@ textarea {
 
 .calendar-grid {
     padding: 15px;
-
     gap: 5px;
 }
 
@@ -839,7 +894,6 @@ textarea {
 
 .calendar-number {
     color: #aeb4c1;
-
     font-size: 10px;
 }
 
@@ -862,13 +916,12 @@ textarea {
 }
 
 
-/* ================= ANALYTICS ================= */
+/* ANALYTICS */
 
 .analytics-grid {
     display: grid;
 
-    grid-template-columns:
-        1.5fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
 
     gap: 14px;
 }
@@ -903,7 +956,7 @@ textarea {
 }
 
 
-/* ================= MODAL ================= */
+/* MODAL */
 
 .modal-overlay {
     position: fixed;
@@ -929,7 +982,7 @@ textarea {
 }
 
 .modal {
-    width: min(540px, 100%);
+    width: min(540px,100%);
 
     max-height: 90vh;
 
@@ -956,7 +1009,6 @@ textarea {
 
 .modal-header h3 {
     margin: 0;
-
     font-size: 17px;
 }
 
@@ -1002,15 +1054,13 @@ form textarea {
 
 form textarea {
     min-height: 80px;
-
     resize: vertical;
 }
 
 .form-grid {
     display: grid;
 
-    grid-template-columns:
-        1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
     gap: 12px;
 }
@@ -1030,7 +1080,50 @@ form textarea {
 }
 
 
-/* ================= TOAST ================= */
+/* DELETE CONFIRMATION */
+
+.confirm-modal {
+    max-width: 420px;
+}
+
+.confirm-icon {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 12px;
+
+    background: rgba(255,91,110,.1);
+
+    color: var(--red);
+
+    font-size: 18px;
+}
+
+.danger-btn {
+    border: 0;
+
+    padding: 10px 14px;
+
+    border-radius: 10px;
+
+    background: var(--red);
+
+    color: white;
+
+    font-weight: 700;
+}
+
+.danger-btn:hover {
+    filter: brightness(1.08);
+}
+
+
+/* TOAST */
 
 #toast {
     position: fixed;
@@ -1063,18 +1156,16 @@ form textarea {
 
 #toast.show {
     opacity: 1;
-
     transform: translateY(0);
 }
 
 
-/* ================= RESPONSIVE ================= */
+/* RESPONSIVE */
 
-@media(max-width: 1050px) {
+@media(max-width:1050px) {
 
     .stats-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
     }
 
     .dashboard-grid,
@@ -1083,16 +1174,15 @@ form textarea {
     }
 
     .clients-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
     }
+
 }
 
-@media(max-width: 750px) {
+@media(max-width:750px) {
 
     .sidebar {
         width: 65px;
-
         padding: 20px 7px;
     }
 
@@ -1117,7 +1207,6 @@ form textarea {
 
     .main {
         margin-left: 65px;
-
         padding: 20px 15px;
     }
 
@@ -1130,8 +1219,7 @@ form textarea {
     }
 
     .stats-grid {
-        grid-template-columns:
-            1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 
     .clients-grid {
@@ -1151,7 +1239,12 @@ form textarea {
         gap: 7px;
     }
 
+    .order-actions {
+        justify-content: flex-start;
+    }
+
     .calendar-day {
         min-height: 60px;
     }
+
 }
