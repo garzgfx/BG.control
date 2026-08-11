@@ -5,6 +5,8 @@
 const API_URL =
     "https://script.google.com/macros/s/AKfycbxFI1k65tY7BfydbB4C9X6yGH8cFO9_MjAsUGd1QEHw7k4fcB8AYaew4kGyh__hr5Ki/exec";
 
+console.log('script.js loaded');
+
 
 /* =========================================================
    LOCAL CACHE
