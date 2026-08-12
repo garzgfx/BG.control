@@ -14,7 +14,625 @@
         .auth-box {
             background: #1e1e1e; padding: 30px; border-radius: 12px; text-align: center;
             box-shadow: 0 8px 32px rgba(0,0,0,0.5); width: 320px; color: #fff; font-family: sans-serif;
-        }
+        }<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garz Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<header>
+  <a href="/" class="logo">
+    <img src="assets/garz logo.png" alt="Garz Logo">
+  </a>
+</header>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-mark">G</div>
+
+            <div>
+                <h1>GARZ</h1>
+                <span>Client Manager</span>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active" data-page="dashboard">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item" data-page="orders">
+                <span>▣</span>
+                Orders
+            </button>
+
+            <button class="nav-item" data-page="clients">
+                <span>♙</span>
+                Clients
+            </button>
+
+            <button class="nav-item" data-page="calendar">
+                <span>◷</span>
+                Calendar
+            </button>
+
+            <button class="nav-item" data-page="analytics">
+                <span>↗</span>
+                Analytics
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="profile">
+                <div class="avatar">G</div>
+
+                <div>
+                    <strong>Garz</strong>
+                    <small>Owner</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h2 id="page-title">Dashboard</h2>
+
+                <p id="page-description">
+                    Here's what's happening with your business.
+                </p>
+            </div>
+
+            <div class="top-actions">
+
+                <button class="secondary-btn" id="search-btn">
+                    Search
+                    <kbd>⌘ K</kbd>
+                </button>
+
+                <button class="primary-btn" id="new-order-btn">
+                    + New Order
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+
+        <section class="page active" id="dashboard-page">
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Active Orders</span>
+                        <div class="stat-icon purple">↗</div>
+                    </div>
+
+                    <strong id="stat-active">0</strong>
+                    <small>Currently working on</small>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Pending</span>
+                        <div class="stat-icon orange">◷</div>
+                    </div>
+
+                    <strong id="stat-pending">0</strong>
+                    <small>Waiting to be started</small>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Revenue</span>
+                        <div class="stat-icon green">€</div>
+                    </div>
+
+                    <strong id="stat-revenue">€0.00</strong>
+                    <small>Total paid</small>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Clients</span>
+                        <div class="stat-icon blue">♙</div>
+                    </div>
+
+                    <strong id="stat-clients">0</strong>
+                    <small>Total clients</small>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Recent Orders</h3>
+                            <p>Your latest projects</p>
+                        </div>
+
+                        <button class="text-btn" data-page-link="orders">
+                            View all
+                        </button>
+                    </div>
+
+                    <div id="recent-orders"></div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Upcoming</h3>
+                            <p>Deadlines</p>
+                        </div>
+                    </div>
+
+                    <div id="upcoming-deadlines"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card quick-actions-card">
+
+                <div class="card-header">
+                    <div>
+                        <h3>Quick Actions</h3>
+                        <p>Get things done faster</p>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+
+                    <button id="quick-order">
+                        <span>+</span>
+                        New Order
+                    </button>
+
+                    <button id="quick-client">
+                        <span>♙</span>
+                        Add Client
+                    </button>
+
+                    <button data-page-link="calendar">
+                        <span>◷</span>
+                        View Calendar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ORDERS -->
+
+        <section class="page" id="orders-page">
+
+            <div class="page-tools">
+
+                <div class="search-box">
+                    <span>⌕</span>
+
+                    <input
+                        id="order-search"
+                        type="text"
+                        placeholder="Search orders..."
+                    >
+                </div>
+
+                <select id="status-filter">
+                    <option value="all">All statuses</option>
+                    <option value="Inquiry">Inquiry</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Review">Review</option>
+                    <option value="Revisions">Revisions</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Paid">Paid</option>
+                </select>
+
+            </div>
+
+            <div class="card">
+                <div id="orders-table"></div>
+            </div>
+
+        </section>
+
+
+        <!-- CLIENTS -->
+
+        <section class="page" id="clients-page">
+
+            <div class="page-tools">
+
+                <div class="search-box">
+                    <span>⌕</span>
+
+                    <input
+                        id="client-search"
+                        type="text"
+                        placeholder="Search clients..."
+                    >
+                </div>
+
+                <button class="primary-btn" id="add-client-btn">
+                    + Add Client
+                </button>
+
+            </div>
+
+            <div class="clients-grid" id="clients-grid"></div>
+
+        </section>
+
+
+        <!-- CALENDAR -->
+
+        <section class="page" id="calendar-page">
+
+            <div class="card">
+
+                <div class="calendar-header">
+
+                    <button id="prev-month">←</button>
+
+                    <h3 id="calendar-title"></h3>
+
+                    <button id="next-month">→</button>
+
+                </div>
+
+                <div class="calendar-weekdays">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+
+                <div class="calendar-grid" id="calendar-grid"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ANALYTICS -->
+
+        <section class="page" id="analytics-page">
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>Total Orders</span>
+                    <strong id="analytics-orders">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Completed</span>
+                    <strong id="analytics-completed">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Average Order</span>
+                    <strong id="analytics-average">€0.00</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Conversion</span>
+                    <strong id="analytics-conversion">0%</strong>
+                </div>
+
+            </div>
+
+
+            <div class="analytics-grid">
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Revenue</h3>
+                            <p>Revenue by order</p>
+                        </div>
+                    </div>
+
+                    <div class="chart" id="revenue-chart"></div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Best Clients</h3>
+                            <p>Highest spending clients</p>
+                        </div>
+                    </div>
+
+                    <div id="best-clients"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div class="modal-overlay" id="modal-overlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <h3 id="modal-title">New Order</h3>
+                <p id="modal-subtitle">Create something new</p>
+            </div>
+
+            <button class="close-btn" id="close-modal">
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- ORDER FORM -->
+
+        <form id="order-form">
+
+            <input type="hidden" id="editing-order-id">
+
+            <div class="form-grid">
+
+                <label>
+                    Client
+
+                    <select id="order-client" required>
+                        <option value="">Select client</option>
+                    </select>
+                </label>
+
+
+                <label>
+                    Service
+
+                    <select id="order-service" required>
+
+                        <option value="">
+                            Select service
+                        </option>
+
+                        <option>Thumbnail</option>
+                        <option>Logo</option>
+                        <option>Banner</option>
+                        <option>Branding</option>
+                        <option>Overlay</option>
+                        <option>Profile Picture</option>
+                        <option>Merch</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </label>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <label>
+                    Price (€)
+
+                    <input
+                        id="order-price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="10"
+                        required
+                    >
+                </label>
+
+
+                <label>
+                    Deadline
+
+                    <input
+                        id="order-deadline"
+                        type="date"
+                        required
+                    >
+                </label>
+
+            </div>
+
+
+            <label>
+                Status
+
+                <select id="order-status">
+                    <option>Inquiry</option>
+                    <option>Accepted</option>
+                    <option>In Progress</option>
+                    <option>Review</option>
+                    <option>Revisions</option>
+                    <option>Completed</option>
+                    <option>Paid</option>
+                </select>
+            </label>
+
+
+            <label>
+                Description
+
+                <textarea
+                    id="order-description"
+                    placeholder="What does the client need?"
+                ></textarea>
+            </label>
+
+
+            <label>
+                Internal Notes
+
+                <textarea
+                    id="order-notes"
+                    placeholder="Private notes..."
+                ></textarea>
+            </label>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="cancel-modal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                    id="order-submit-btn"
+                >
+                    Create Order
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- CLIENT FORM -->
+
+        <form id="client-form" class="hidden">
+
+            <input type="hidden" id="editing-client-id">
+
+            <label>
+                Name
+
+                <input
+                    id="client-name"
+                    placeholder="Client name"
+                    required
+                >
+            </label>
+
+
+            <label>
+                Discord
+
+                <input
+                    id="client-discord"
+                    placeholder="@username"
+                    required
+                >
+            </label>
+
+
+            <label>
+                Email
+
+                <input
+                    id="client-email"
+                    type="email"
+                    placeholder="client@email.com"
+                >
+            </label>
+
+
+            <label>
+                Notes
+
+                <textarea
+                    id="client-notes"
+                    placeholder="Notes about this client..."
+                ></textarea>
+            </label>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="cancel-client"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                    id="client-submit-btn"
+                >
+                    Add Client
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div id="toast"></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
         .auth-box h2 { margin-bottom: 20px; color: #a855f7; }
         .auth-box input {
             width: 100%; padding: 10px; margin: 8px 0; border-radius: 6px;
