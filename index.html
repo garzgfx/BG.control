@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+    <!-- SECURITY AUTHENTICATION PORTAL OVERLAY -->
+<div id="auth-overlay" class="auth-overlay">
+    <div class="auth-box">
+        <h2 id="auth-title">Garz Manager Login</h2>
+        <input type="email" id="auth-email" placeholder="Email Address">
+        <input type="password" id="auth-password" placeholder="Password">
+        <button class="btn-primary" id="auth-main-btn">Sign In</button>
+        <button class="btn-secondary" id="auth-toggle-btn">Create an Account</button>
+    </div>
+</div>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +42,7 @@
 
 <body>
 
-<div class="app">
+<div class="app" id="main-app-content" style="display: none;">
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
