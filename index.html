@@ -1,1429 +1,642 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-.logo img {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-}
-
-:root {
-    --bg: #08090c;
-    --surface: #0e1015;
-    --surface-2: #13161d;
-    --surface-3: #181b23;
-    --border: #222631;
-
-    --text: #f5f7fb;
-    --muted: #858c9b;
-
-    --purple: #8b5cf6;
-    --purple-dark: #6d3df3;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garz Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    --green: #35d07f;
-    --orange: #f5ae45;
-    --red: #ff5b6e;
-    --blue: #4da3ff;
+<body>
 
-    --radius: 15px;
-}
+<header>
+    <a href="/" class="logo">
+        <img src="Assets/garz logo.png" alt="Garz Logo">
+    </a>
+</header>
 
-* {
-    box-sizing: border-box;
-}
+<!-- LOGIN SCREEN (shown when not authenticated) -->
+<div id="login-screen" class="login-screen">
+    <div class="login-card">
+        <h1>BG.control</h1>
+        <p>Sign in to access your dashboard.</p>
 
-body {
-    margin: 0;
-    color: var(--text);
-    background:
-        radial-gradient(
-            circle at 80% -20%,
-            rgba(139,92,246,.13),
-            transparent 35%
-        ),
-        var(--bg);
-    font-family: Inter, sans-serif;
-}
+        <button id="google-login" class="google-login">
+            <span>G</span>
+            <span>Sign in with Google</span>
+        </button>
+    </div>
+</div>
 
-button,
-input,
-select,
-textarea {
-    font: inherit;
-    outline: none;
-}
+<div class="app">
 
-button {
-    cursor: pointer;
-}
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
+        <div class="brand">
+            <div class="brand-mark">G</div>
 
-/* SIDEBAR */
+            <div>
+                <h1>BG.control</h1>
+                <span>Client Manager</span>
+            </div>
+        </div>
 
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
+        <nav>
+            <button class="nav-item active" data-page="dashboard">
+                <span>⌂</span>
+                Dashboard
+            </button>
 
-    width: 235px;
+            <button class="nav-item" data-page="orders">
+                <span>▣</span>
+                Orders
+            </button>
 
-    background: rgba(10,11,15,.95);
-    border-right: 1px solid var(--border);
+            <button class="nav-item" data-page="clients">
+                <span>♙</span>
+                Clients
+            </button>
 
-    padding: 24px 14px;
-
-    display: flex;
-    flex-direction: column;
+            <button class="nav-item" data-page="calendar">
+                <span>◷</span>
+                Calendar
+            </button>
 
-    z-index: 10;
-}
+            <button class="nav-item" data-page="analytics">
+                <span>↗</span>
+                Analytics
+            </button>
+        </nav>
 
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
+<div class="profile">
 
-    padding: 3px 9px 30px;
-}
+    <div class="avatar">G</div>
 
-.brand-mark {
-    width: 38px;
-    height: 38px;
+    <div class="profile-info">
 
-    display: grid;
-    place-items: center;
+        <strong>BG.control</strong>
+        <small>Owner</small>
 
-    border-radius: 11px;
+    </div>
 
-    font-weight: 900;
+    <button
+        id="logout-btn"
+        class="logout-btn"
+        title="Log out"
+    >
+        ↪
+    </button>
 
-    background:
-        linear-gradient(
-            135deg,
-            #a47aff,
-            #6837ed
-        );
+</div>
 
-    box-shadow:
-        0 8px 30px rgba(139,92,246,.28);
-}
+    </aside>
 
-.brand h1 {
-    margin: 0;
-    font-size: 14px;
-}
 
-.brand span {
-    display: block;
+    <!-- MAIN -->
+    <main class="main">
 
-    margin-top: 3px;
+        <header class="topbar">
 
-    color: var(--muted);
+            <div>
+                <h2 id="page-title">Dashboard</h2>
 
-    font-size: 10px;
-}
+                <p id="page-description">
+                    Here's what's happening with your business.
+                </p>
+            </div>
 
-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
+            <div class="top-actions">
 
-.nav-item {
-    border: 0;
-    background: transparent;
-    color: #9299a8;
+                <button class="secondary-btn" id="search-btn">
+                    Search
+                    <kbd>⌘ K</kbd>
+                </button>
 
-    padding: 11px 12px;
+                <button class="primary-btn" id="new-order-btn">
+                    + New Order
+                </button>
 
-    border-radius: 10px;
+            </div>
 
-    text-align: left;
+        </header>
 
-    display: flex;
-    align-items: center;
-    gap: 11px;
 
-    transition: .15s;
-}
+        <!-- DASHBOARD -->
 
-.nav-item span {
-    width: 20px;
-    text-align: center;
-}
+        <section class="page active" id="dashboard-page">
 
-.nav-item:hover {
-    background: var(--surface-2);
-    color: white;
-}
+            <div class="stats-grid">
 
-.nav-item.active {
-    color: white;
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Active Orders</span>
+                        <div class="stat-icon purple">↗</div>
+                    </div>
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(139,92,246,.18),
-            rgba(139,92,246,.05)
-        );
-}
+                    <strong id="stat-active">0</strong>
+                    <small>Currently working on</small>
+                </div>
 
-.sidebar-bottom {
-    margin-top: auto;
-}
 
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Pending</span>
+                        <div class="stat-icon orange">◷</div>
+                    </div>
 
-    padding: 12px;
+                    <strong id="stat-pending">0</strong>
+                    <small>Waiting to be started</small>
+                </div>
 
-    border-top: 1px solid var(--border);
-}
 
-.avatar {
-    width: 28px;
-    height: 28px;
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Revenue</span>
+                        <div class="stat-icon green">€</div>
+                    </div>
 
-    display: grid;
-    place-items: center;
+                    <strong id="stat-revenue">€0.00</strong>
+                    <small>Total paid</small>
+                </div>
 
-    border-radius: 50%;
 
-    background: var(--surface-3);
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Clients</span>
+                        <div class="stat-icon blue">♙</div>
+                    </div>
 
-    color: #b99cff;
+                    <strong id="stat-clients">0</strong>
+                    <small>Total clients</small>
+                </div>
 
-    font-weight: 800;
-}
+            </div>
 
-.profile strong {
-    display: block;
-    font-size: 12px;
-}
 
-.profile small {
-    color: var(--muted);
-    font-size: 10px;
-}
+            <div class="dashboard-grid">
 
+                <div class="card">
 
-/* MAIN */
+                    <div class="card-header">
+                        <div>
+                            <h3>Recent Orders</h3>
+                            <p>Your latest projects</p>
+                        </div>
 
-.main {
-    margin-left: 235px;
-    min-height: 100vh;
+                        <button class="text-btn" data-page-link="orders">
+                            View all
+                        </button>
+                    </div>
 
-    padding: 30px 32px;
-}
+                    <div id="recent-orders"></div>
 
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+                </div>
 
-    gap: 20px;
 
-    margin-bottom: 28px;
-}
+                <div class="card">
 
-.topbar h2 {
-    margin: 0;
+                    <div class="card-header">
+                        <div>
+                            <h3>Upcoming</h3>
+                            <p>Deadlines</p>
+                        </div>
+                    </div>
 
-    font-size: 27px;
+                    <div id="upcoming-deadlines"></div>
 
-    letter-spacing: -.035em;
-}
+                </div>
 
-.topbar p {
-    margin: 5px 0 0;
+            </div>
 
-    color: var(--muted);
 
-    font-size: 12px;
-}
+            <div class="card quick-actions-card">
 
-.top-actions {
-    display: flex;
-    gap: 9px;
-}
+                <div class="card-header">
+                    <div>
+                        <h3>Quick Actions</h3>
+                        <p>Get things done faster</p>
+                    </div>
+                </div>
 
+                <div class="quick-actions">
 
-/* BUTTONS */
+                    <button id="quick-order">
+                        <span>+</span>
+                        New Order
+                    </button>
 
-.primary-btn,
-.secondary-btn {
-    border-radius: 10px;
+                    <button id="quick-client">
+                        <span>♙</span>
+                        Add Client
+                    </button>
 
-    padding: 10px 14px;
+                    <button data-page-link="calendar">
+                        <span>◷</span>
+                        View Calendar
+                    </button>
 
-    font-weight: 700;
+                </div>
 
-    transition: .15s;
-}
+            </div>
 
-.primary-btn {
-    border: 0;
+        </section>
 
-    color: white;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--purple),
-            var(--purple-dark)
-        );
+        <!-- ORDERS -->
 
-    box-shadow:
-        0 8px 25px rgba(109,61,243,.18);
-}
+        <section class="page" id="orders-page">
 
-.primary-btn:hover {
-    transform: translateY(-1px);
-}
+            <div class="page-tools">
 
-.secondary-btn {
-    border: 1px solid var(--border);
+                <div class="search-box">
+                    <span>⌕</span>
 
-    background: var(--surface);
-    color: var(--text);
-}
+                    <input
+                        id="order-search"
+                        type="text"
+                        placeholder="Search orders..."
+                    >
+                </div>
 
-.secondary-btn:hover {
-    border-color: #353a47;
-    background: var(--surface-2);
-}
+                <select id="status-filter">
+                    <option value="all">All statuses</option>
+                    <option value="Inquiry">Inquiry</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Review">Review</option>
+                    <option value="Revisions">Revisions</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Paid">Paid</option>
+                </select>
 
-kbd {
-    margin-left: 8px;
+            </div>
 
-    padding: 2px 5px;
+            <div class="card">
+                <div id="orders-table"></div>
+            </div>
 
-    border: 1px solid var(--border);
-    border-radius: 5px;
+        </section>
 
-    color: var(--muted);
 
-    font-size: 9px;
-}
+        <!-- CLIENTS -->
 
+        <section class="page" id="clients-page">
 
-/* PAGES */
+            <div class="page-tools">
 
-.page {
-    display: none;
-    animation: appear .18s ease;
-}
+                <div class="search-box">
+                    <span>⌕</span>
 
-.page.active {
-    display: block;
-}
+                    <input
+                        id="client-search"
+                        type="text"
+                        placeholder="Search clients..."
+                    >
+                </div>
 
-@keyframes appear {
-    from {
-        opacity: 0;
-        transform: translateY(4px);
-    }
+                <button class="primary-btn" id="add-client-btn">
+                    + Add Client
+                </button>
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+            </div>
 
+            <div class="clients-grid" id="clients-grid"></div>
 
-/* STATS */
+        </section>
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
 
-    gap: 13px;
+        <!-- CALENDAR -->
 
-    margin-bottom: 18px;
-}
+        <section class="page" id="calendar-page">
 
-.stat-card {
-    background: rgba(14,16,21,.88);
+            <div class="card">
 
-    border: 1px solid var(--border);
+                <div class="calendar-header">
 
-    border-radius: var(--radius);
+                    <button id="prev-month">←</button>
 
-    padding: 17px;
-}
+                    <h3 id="calendar-title"></h3>
 
-.stat-card > span,
-.stat-top span {
-    color: var(--muted);
-    font-size: 11px;
-}
+                    <button id="next-month">→</button>
 
-.stat-card > strong {
-    display: block;
+                </div>
 
-    margin-top: 10px;
+                <div class="calendar-weekdays">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
 
-    font-size: 25px;
+                <div class="calendar-grid" id="calendar-grid"></div>
 
-    letter-spacing: -.04em;
-}
+            </div>
 
-.stat-card > small {
-    display: block;
+        </section>
 
-    margin-top: 5px;
 
-    color: #666d7b;
+        <!-- ANALYTICS -->
 
-    font-size: 10px;
-}
+        <section class="page" id="analytics-page">
 
-.stat-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+            <div class="stats-grid">
 
-.stat-icon {
-    width: 30px;
-    height: 30px;
+                <div class="stat-card">
+                    <span>Total Orders</span>
+                    <strong id="analytics-orders">0</strong>
+                </div>
 
-    display: grid;
-    place-items: center;
+                <div class="stat-card">
+                    <span>Completed</span>
+                    <strong id="analytics-completed">0</strong>
+                </div>
 
-    border-radius: 8px;
+                <div class="stat-card">
+                    <span>Average Order</span>
+                    <strong id="analytics-average">€0.00</strong>
+                </div>
 
-    font-weight: 800;
-}
+                <div class="stat-card">
+                    <span>Conversion</span>
+                    <strong id="analytics-conversion">0%</strong>
+                </div>
 
-.purple {
-    background: rgba(139,92,246,.12);
-    color: #a78bfa;
-}
+            </div>
 
-.orange {
-    background: rgba(245,174,69,.12);
-    color: var(--orange);
-}
 
-.green {
-    background: rgba(53,208,127,.12);
-    color: var(--green);
-}
+            <div class="analytics-grid">
 
-.blue {
-    background: rgba(77,163,255,.12);
-    color: var(--blue);
-}
+                <div class="card">
 
+                    <div class="card-header">
+                        <div>
+                            <h3>Revenue</h3>
+                            <p>Revenue by order</p>
+                        </div>
+                    </div>
 
-/* CARDS */
+                    <div class="chart" id="revenue-chart"></div>
 
-.card {
-    background: rgba(14,16,21,.88);
+                </div>
 
-    border: 1px solid var(--border);
 
-    border-radius: var(--radius);
+                <div class="card">
 
-    overflow: hidden;
-}
+                    <div class="card-header">
+                        <div>
+                            <h3>Best Clients</h3>
+                            <p>Highest spending clients</p>
+                        </div>
+                    </div>
 
-.card-header {
-    padding: 16px 17px;
+                    <div id="best-clients"></div>
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+                </div>
 
-    border-bottom: 1px solid var(--border);
-}
+            </div>
 
-.card-header h3 {
-    margin: 0;
-    font-size: 13px;
-}
+        </section>
 
-.card-header p {
-    margin: 4px 0 0;
+    </main>
 
-    color: var(--muted);
+</div>
 
-    font-size: 10px;
-}
 
-.text-btn {
-    border: 0;
+<!-- MODAL -->
 
-    background: transparent;
+<div class="modal-overlay" id="modal-overlay">
 
-    color: #a78bfa;
+    <div class="modal">
 
-    font-size: 11px;
+        <div class="modal-header">
 
-    font-weight: 700;
-}
+            <div>
+                <h3 id="modal-title">New Order</h3>
+                <p id="modal-subtitle">Create something new</p>
+            </div>
 
+            <button class="close-btn" id="close-modal">
+                ×
+            </button>
 
-/* DASHBOARD */
+        </div>
 
-.dashboard-grid {
-    display: grid;
 
-    grid-template-columns: 1.5fr 1fr;
+        <!-- ORDER FORM -->
 
-    gap: 14px;
+        <form id="order-form">
 
-    margin-bottom: 14px;
-}
+            <input type="hidden" id="editing-order-id">
 
-.quick-actions-card {
-    margin-top: 14px;
-}
+            <div class="form-grid">
 
-.quick-actions {
-    display: grid;
+                <label>
+                    Client
 
-    grid-template-columns: repeat(3,1fr);
+                    <select id="order-client" required>
+                        <option value="">Select client</option>
+                    </select>
+                </label>
 
-    gap: 10px;
 
-    padding: 15px;
-}
+                <label>
+                    Service
 
-.quick-actions button {
-    padding: 16px;
+                    <select id="order-service" required>
 
-    border: 1px solid var(--border);
+                        <option value="">
+                            Select service
+                        </option>
 
-    border-radius: 11px;
+                        <option>Thumbnail</option>
+                        <option>Logo</option>
+                        <option>Banner</option>
+                        <option>Branding</option>
+                        <option>Overlay</option>
+                        <option>Profile Picture</option>
+                        <option>Merch</option>
+                        <option>Other</option>
 
-    background: var(--surface-2);
+                    </select>
 
-    color: var(--text);
+                </label>
 
-    text-align: left;
+            </div>
 
-    transition: .15s;
-}
 
-.quick-actions button:hover {
-    border-color: #383d4a;
-    transform: translateY(-1px);
-}
+            <div class="form-grid">
 
-.quick-actions span {
-    display: block;
+                <label>
+                    Price (€)
 
-    margin-bottom: 8px;
+                    <input
+                        id="order-price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="10"
+                        required
+                    >
+                </label>
 
-    color: #a78bfa;
 
-    font-size: 18px;
-}
+                <label>
+                    Deadline
 
+                    <input
+                        id="order-deadline"
+                        type="date"
+                        required
+                    >
+                </label>
 
-/* ORDER ROWS */
+            </div>
 
-.order-row {
-    display: grid;
 
-    grid-template-columns: 1.4fr 1fr 110px 80px auto;
+            <label>
+                Status
 
-    align-items: center;
+                <select id="order-status">
+                    <option>Inquiry</option>
+                    <option>Accepted</option>
+                    <option>In Progress</option>
+                    <option>Review</option>
+                    <option>Revisions</option>
+                    <option>Completed</option>
+                    <option>Paid</option>
+                </select>
+            </label>
 
-    gap: 15px;
 
-    padding: 13px 16px;
+            <label>
+                Description
 
-    border-bottom: 1px solid #1b1e25;
-}
+                <textarea
+                    id="order-description"
+                    placeholder="What does the client need?"
+                ></textarea>
+            </label>
 
-.order-row:last-child {
-    border-bottom: 0;
-}
 
-.order-name {
-    font-size: 12px;
-    font-weight: 700;
-}
+            <label>
+                Internal Notes
 
-.order-meta {
-    margin-top: 4px;
+                <textarea
+                    id="order-notes"
+                    placeholder="Private notes..."
+                ></textarea>
+            </label>
 
-    color: var(--muted);
 
-    font-size: 10px;
-}
+            <div class="modal-actions">
 
-.order-price {
-    font-size: 12px;
-    font-weight: 800;
-}
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="cancel-modal"
+                >
+                    Cancel
+                </button>
 
-.status-select {
-    padding: 6px 8px;
+                <button
+                    type="submit"
+                    class="primary-btn"
+                    id="order-submit-btn"
+                >
+                    Create Order
+                </button>
 
-    border-radius: 7px;
+            </div>
 
-    background: var(--surface-2);
+        </form>
 
-    border: 1px solid var(--border);
 
-    color: #c8ced8;
+        <!-- CLIENT FORM -->
 
-    font-size: 9px;
+        <form id="client-form" class="hidden">
 
-    max-width: 120px;
-}
+            <input type="hidden" id="editing-client-id">
 
+            <label>
+                Name
 
-/* ORDER ACTIONS */
+                <input
+                    id="client-name"
+                    placeholder="Client name"
+                    required
+                >
+            </label>
 
-.order-actions {
-    display: flex;
-    gap: 5px;
-}
 
-.icon-btn {
-    width: 30px;
-    height: 30px;
+            <label>
+                Discord
 
-    display: grid;
-    place-items: center;
+                <input
+                    id="client-discord"
+                    placeholder="@username"
+                    required
+                >
+            </label>
 
-    border: 1px solid var(--border);
 
-    border-radius: 8px;
+            <label>
+                Email
 
-    background: var(--surface-2);
+                <input
+                    id="client-email"
+                    type="email"
+                    placeholder="client@email.com"
+                >
+            </label>
 
-    color: #aeb4c1;
 
-    font-size: 12px;
+            <label>
+                Notes
 
-    transition: .15s;
-}
+                <textarea
+                    id="client-notes"
+                    placeholder="Notes about this client..."
+                ></textarea>
+            </label>
 
-.icon-btn:hover {
-    border-color: #3b4050;
-    color: white;
-}
 
-.icon-btn.delete:hover {
-    border-color: rgba(255,91,110,.4);
+            <div class="modal-actions">
 
-    background: rgba(255,91,110,.08);
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="cancel-client"
+                >
+                    Cancel
+                </button>
 
-    color: var(--red);
-}
+                <button
+                    type="submit"
+                    class="primary-btn"
+                    id="client-submit-btn"
+                >
+                    Add Client
+                </button>
 
+            </div>
 
-/* STATUS */
+        </form>
 
-.status {
-    display: inline-block;
+    </div>
 
-    padding: 5px 8px;
+</div>
 
-    border-radius: 999px;
 
-    font-size: 9px;
+<!-- TOAST -->
 
-    font-weight: 800;
+<div id="toast"></div>
 
-    white-space: nowrap;
-}
 
-.status-inquiry {
-    color: var(--blue);
-    background: rgba(77,163,255,.1);
-}
-
-.status-accepted {
-    color: #ad91ff;
-    background: rgba(139,92,246,.11);
-}
-
-.status-progress {
-    color: var(--orange);
-    background: rgba(245,174,69,.1);
-}
-
-.status-review {
-    color: #ff9f5b;
-    background: rgba(255,159,91,.1);
-}
-
-.status-revisions {
-    color: var(--red);
-    background: rgba(255,91,110,.1);
-}
-
-.status-completed,
-.status-paid {
-    color: var(--green);
-    background: rgba(53,208,127,.1);
-}
-
-
-/* TOOLS */
-
-.page-tools {
-    display: flex;
-    gap: 10px;
-
-    margin-bottom: 15px;
-}
-
-.search-box {
-    flex: 1;
-
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 0 12px;
-
-    background: var(--surface);
-
-    border: 1px solid var(--border);
-
-    border-radius: 10px;
-}
-
-.search-box span {
-    color: var(--muted);
-}
-
-.search-box input {
-    width: 100%;
-
-    padding: 11px 0;
-
-    border: 0;
-
-    background: transparent;
-
-    color: white;
-}
-
-select,
-input,
-textarea {
-    color: white;
-
-    background: #0c0e13;
-
-    border: 1px solid var(--border);
-
-    border-radius: 9px;
-
-    padding: 10px 11px;
-}
-
-.page-tools select {
-    min-width: 160px;
-}
-
-
-/* CLIENTS */
-
-.clients-grid {
-    display: grid;
-
-    grid-template-columns: repeat(3,1fr);
-
-    gap: 13px;
-}
-
-.client-card {
-    padding: 17px;
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    background: var(--surface);
-
-    transition: .15s;
-}
-
-.client-card:hover {
-    transform: translateY(-2px);
-    border-color: #343946;
-}
-
-.client-avatar {
-    width: 39px;
-    height: 39px;
-
-    display: grid;
-    place-items: center;
-
-    margin-bottom: 12px;
-
-    border-radius: 11px;
-
-    background: rgba(139,92,246,.12);
-
-    color: #b398ff;
-
-    font-weight: 800;
-}
-
-.client-card h3 {
-    margin: 0;
-    font-size: 13px;
-}
-
-.client-discord {
-    margin-top: 4px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-}
-
-.client-stats {
-    display: flex;
-    gap: 30px;
-
-    margin-top: 18px;
-}
-
-.client-stat strong {
-    display: block;
-    font-size: 14px;
-}
-
-.client-stat span {
-    color: var(--muted);
-    font-size: 9px;
-}
-
-.client-actions {
-    display: flex;
-
-    gap: 7px;
-
-    margin-top: 16px;
-
-    padding-top: 13px;
-
-    border-top: 1px solid var(--border);
-}
-
-.client-actions button {
-    flex: 1;
-}
-
-
-/* CALENDAR */
-
-.calendar-header {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 18px;
-}
-
-.calendar-header h3 {
-    margin: 0;
-    font-size: 15px;
-}
-
-.calendar-header button {
-    width: 32px;
-    height: 32px;
-
-    border: 1px solid var(--border);
-
-    border-radius: 8px;
-
-    background: var(--surface-2);
-
-    color: white;
-}
-
-.calendar-weekdays,
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7,1fr);
-}
-
-.calendar-weekdays {
-    padding: 0 15px;
-    border-bottom: 1px solid var(--border);
-}
-
-.calendar-weekdays span {
-    padding: 11px;
-
-    color: var(--muted);
-
-    font-size: 9px;
-
-    text-align: center;
-}
-
-.calendar-grid {
-    padding: 15px;
-    gap: 5px;
-}
-
-.calendar-day {
-    min-height: 90px;
-
-    padding: 9px;
-
-    border: 1px solid var(--border);
-
-    border-radius: 9px;
-
-    background: rgba(10,12,16,.5);
-}
-
-.calendar-day.muted {
-    opacity: .3;
-}
-
-.calendar-number {
-    color: #aeb4c1;
-    font-size: 10px;
-}
-
-.calendar-order {
-    margin-top: 8px;
-
-    padding: 5px;
-
-    border-radius: 6px;
-
-    background: rgba(139,92,246,.13);
-
-    color: #b398ff;
-
-    font-size: 8px;
-
-    overflow: hidden;
-
-    white-space: nowrap;
-}
-
-
-/* ANALYTICS */
-
-.analytics-grid {
-    display: grid;
-
-    grid-template-columns: 1.5fr 1fr;
-
-    gap: 14px;
-}
-
-.chart {
-    min-height: 250px;
-
-    padding: 20px;
-
-    display: flex;
-
-    align-items: end;
-
-    gap: 10px;
-}
-
-.chart-bar {
-    flex: 1;
-
-    min-width: 12px;
-
-    border-radius: 5px 5px 2px 2px;
-
-    background:
-        linear-gradient(
-            to top,
-            var(--purple-dark),
-            #a98aff
-        );
-
-    transition: height .3s ease;
-}
-
-
-/* MODAL */
-
-.modal-overlay {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 100;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(0,0,0,.7);
-
-    backdrop-filter: blur(7px);
-}
-
-.modal-overlay.open {
-    display: flex;
-}
-
-.modal {
-    width: min(540px,100%);
-
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    padding: 20px;
-
-    border: 1px solid #2a2e38;
-
-    border-radius: 18px;
-
-    background: #11141a;
-
-    box-shadow: 0 30px 100px rgba(0,0,0,.5);
-}
-
-.modal-header {
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 20px;
-}
-
-.modal-header h3 {
-    margin: 0;
-    font-size: 17px;
-}
-
-.modal-header p {
-    margin: 4px 0 0;
-
-    color: var(--muted);
-
-    font-size: 10px;
-}
-
-.close-btn {
-    border: 0;
-
-    background: transparent;
-
-    color: var(--muted);
-
-    font-size: 22px;
-}
-
-form label {
-    display: block;
-
-    margin-bottom: 14px;
-
-    color: #b8bec9;
-
-    font-size: 10px;
-
-    font-weight: 600;
-}
-
-form input,
-form select,
-form textarea {
-    display: block;
-
-    width: 100%;
-
-    margin-top: 6px;
-}
-
-form textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-
-.form-grid {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 12px;
-}
-
-.modal-actions {
-    display: flex;
-
-    justify-content: flex-end;
-
-    gap: 8px;
-
-    margin-top: 18px;
-}
-
-.hidden {
-    display: none !important;
-}
-
-
-/* DELETE CONFIRMATION */
-
-.confirm-modal {
-    max-width: 420px;
-}
-
-.confirm-icon {
-    width: 42px;
-    height: 42px;
-
-    display: grid;
-    place-items: center;
-
-    margin-bottom: 15px;
-
-    border-radius: 12px;
-
-    background: rgba(255,91,110,.1);
-
-    color: var(--red);
-
-    font-size: 18px;
-}
-
-.danger-btn {
-    border: 0;
-
-    padding: 10px 14px;
-
-    border-radius: 10px;
-
-    background: var(--red);
-
-    color: white;
-
-    font-weight: 700;
-}
-
-.danger-btn:hover {
-    filter: brightness(1.08);
-}
-
-
-/* TOAST */
-
-#toast {
-    position: fixed;
-
-    right: 22px;
-    bottom: 22px;
-
-    z-index: 200;
-
-    padding: 12px 15px;
-
-    border: 1px solid #303540;
-
-    border-radius: 10px;
-
-    background: #171a21;
-
-    color: white;
-
-    font-size: 11px;
-
-    opacity: 0;
-
-    transform: translateY(10px);
-
-    pointer-events: none;
-
-    transition: .2s;
-}
-
-#toast.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/* RESPONSIVE */
-
-@media(max-width:1050px) {
-
-    .stats-grid {
-        grid-template-columns: repeat(2,1fr);
-    }
-
-    .dashboard-grid,
-    .analytics-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .clients-grid {
-        grid-template-columns: repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:750px) {
-
-    .sidebar {
-        width: 65px;
-        padding: 20px 7px;
-    }
-
-    .brand {
-        justify-content: center;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .brand > div:last-child,
-    .nav-item {
-        font-size: 0;
-    }
-
-    .nav-item span {
-        font-size: 14px;
-    }
-
-    .profile > div:last-child {
-        display: none;
-    }
-
-    .main {
-        margin-left: 65px;
-        padding: 20px 15px;
-    }
-
-    .topbar {
-        align-items: flex-start;
-    }
-
-    .top-actions .secondary-btn {
-        display: none;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .clients-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .quick-actions {
-        grid-template-columns: 1fr;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .order-row {
-        grid-template-columns: 1fr;
-        gap: 7px;
-    }
-
-    .order-actions {
-        justify-content: flex-start;
-    }
-
-    .calendar-day {
-        min-height: 60px;
-    }
-
-}
-
-/* ============================================
-   LOGIN
-============================================ */
-
-.login-screen {
-    position: fixed;
-    inset: 0;
-
-    z-index: 9999;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at 50% 20%,
-            rgba(139,92,246,.18),
-            transparent 40%
-        ),
-        #08090c;
-
-    padding: 20px;
-}
-
-.login-card {
-    width: min(380px, calc(100% - 40px));
-
-    padding: 38px;
-
-    text-align: center;
-
-    border: 1px solid var(--border);
-    border-radius: 20px;
-
-    background: rgba(14,16,21,.95);
-
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.5);
-}
-
-.login-logo {
-    width: 58px;
-    height: 58px;
-
-    margin: 0 auto 18px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 16px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #a47aff,
-            #6837ed
-        );
-
-    font-size: 24px;
-    font-weight: 900;
-
-    box-shadow:
-        0 10px 35px rgba(139,92,246,.3);
-}
-
-.login-card h1 {
-    margin: 0;
-
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-}
-
-.login-card p {
-    margin: 10px 0 32px;
-
-    color: var(--muted);
-
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.google-login {
-    width: 100%;
-
-    padding: 14px 16px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-
-    border: 1px solid var(--border);
-    border-radius: 10px;
-
-    background: white;
-    color: #111;
-
-    font-weight: 700;
-    font-size: 15px;
-
-    transition: .15s;
-}
-
-.google-login:hover {
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.25);
-}
-
-.google-login span {
-    font-weight: 900;
-    font-size: 18px;
-}
-
-.google-login span:last-child {
-    font-weight: 600;
-    font-size: 15px;
-}
-
-
-/* ============================================
-   PROFILE
-============================================ */
-
-.profile {
-    position: relative;
-}
-
-.profile-info {
-    min-width: 0;
-}
-
-.logout-btn {
-    margin-left: auto;
-
-    width: 28px;
-    height: 28px;
-
-    display: grid;
-    place-items: center;
-
-    border: 1px solid var(--border);
-    border-radius: 7px;
-
-    background: var(--surface-2);
-    color: var(--muted);
-
-    cursor: pointer;
-}
-
-.logout-btn:hover {
-    color: white;
-    border-color: #3b4050;
-}
-
-.avatar img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    border-radius: inherit;
-}
-
-
-/* Don't show the manager until Firebase
-   confirms the user is logged in. */
-
-.app.hidden {
-    display: none;
-}
-
-.login-screen.hidden {
-    display: none;
-}
+<script type="module" src="auth.js"></script>
+<script type="module" src="script.js"></script>
+</body>
+</html>
