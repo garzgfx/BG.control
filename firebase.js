@@ -8,14 +8,15 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/12.16.0/firebas
 // ============================================
 // YOUR FIREBASE CONFIG
 // ============================================
-
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCmT0p-t5aGZKsd2kqi7iP46C1fsEiU6xI",
+  authDomain: "garz-dashboard.firebaseapp.com",
+  projectId: "garz-dashboard",
+  storageBucket: "garz-dashboard.firebasestorage.app",
+  messagingSenderId: "832733585201",
+  appId: "1:832733585201:web:823543aedb266343699a10",
+  measurementId: "G-0J1SMSNXT7"
 };
 
 // ============================================
