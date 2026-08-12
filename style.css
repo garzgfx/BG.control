@@ -183,13 +183,13 @@ nav {
 }
 
 .avatar {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
 
     display: grid;
     place-items: center;
 
-    border-radius: 9px;
+    border-radius: 50%;
 
     background: var(--surface-3);
 
@@ -1365,6 +1365,51 @@ form textarea {
 .google-login span:last-child {
     font-weight: 600;
     font-size: 15px;
+}
+
+.login-divider {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin: 16px 0;
+    position: relative;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 35%;
+    height: 1px;
+    background: var(--border);
+}
+
+.login-divider::before {
+    left: 0;
+}
+
+.login-divider::after {
+    right: 0;
+}
+
+.create-account-btn {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text);
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .15s;
+}
+
+.create-account-btn:hover {
+    border-color: #a78bfa;
+    background: rgba(139,92,246,.08);
+    color: #a78bfa;
 }
 
 
