@@ -8,59 +8,24 @@
     <style>
         /* Essential Overlay Styles for the Security Portal */
         .auth-overlay {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            background: #111; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #111; display: flex; align-items: center; justify-content: center; z-index: 9999;
         }
         .auth-box {
-            background: #1e1e1e; 
-            padding: 30px; 
-            border-radius: 12px; 
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5); 
-            width: 320px; 
-            color: #fff; 
-            font-family: sans-serif;
+            background: #1e1e1e; padding: 30px; border-radius: 12px; text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5); width: 320px; color: #fff; font-family: sans-serif;
         }
-        .auth-box h2 { 
-            margin-bottom: 20px; 
-            color: #a855f7; 
-        }
+        .auth-box h2 { margin-bottom: 20px; color: #a855f7; }
         .auth-box input {
-            width: 100%; 
-            padding: 10px; 
-            margin: 8px 0; 
-            border-radius: 6px;
-            border: 1px solid #333; 
-            background: #2a2a2a; 
-            color: #fff; 
-            box-sizing: border-box;
+            width: 100%; padding: 10px; margin: 8px 0; border-radius: 6px;
+            border: 1px solid #333; background: #2a2a2a; color: #fff; box-sizing: border-box;
         }
         .auth-box button {
-            width: 100%; 
-            padding: 11px; 
-            margin-top: 10px; 
-            border-radius: 6px;
-            border: none; 
-            cursor: pointer; 
-            font-weight: bold;
+            width: 100%; padding: 11px; margin-top: 10px; border-radius: 6px;
+            border: none; cursor: pointer; font-weight: bold;
         }
-        .btn-primary { 
-            background: #a855f7; 
-            color: white; 
-        }
-        .btn-secondary { 
-            background: transparent; 
-            color: #aaa; 
-            border: 1px solid #444 !important; 
-        }
+        .btn-primary { background: #a855f7; color: white; }
+        .btn-secondary { background: transparent; color: #aaa; border: 1px solid #444 !important; }
     </style>
 </head>
 
@@ -72,103 +37,18 @@
         <h2 id="auth-title">Garz Manager Login</h2>
         <input type="email" id="auth-email" placeholder="Email Address">
         <input type="password" id="auth-password" placeholder="Password">
-        <button class="btn-primary" onclick="handleAuthAction()">Sign In</button>
-        <button class="btn-secondary" id="auth-toggle-btn" onclick="toggleAuthMode()">Create an Account</button>
+        <button class="btn-primary" id="auth-main-btn">Sign In</button>
+        <button class="btn-secondary" id="auth-toggle-btn">Create an Account</button>
     </div>
 </div>
 
-<script type="module">
-  // Import core Firebase modules along with Authentication and Database tools
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://gstatic.com";
-  import { getFirestore, doc, setDoc, getDoc } from "https://gstatic.com";
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCmT0p-t5aGZKsd2kqi7iP46C1fsEiU6xI",
-    authDomain: "garz-dashboard.firebaseapp.com",
-    projectId: "garz-dashboard",
-    storageBucket: "garz-dashboard.firebasestorage.app",
-    messagingSenderId: "832733585201",
-    appId: "1:832733585201:web:823543aedb266343699a10",
-    measurementId: "G-0J1SMSNXT7"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  let isSignUpMode = false;
-  let currentUser = null;
-
-  // Toggle between Login and Registration mode
-  window.toggleAuthMode = () => {
-      isSignUpMode = !isSignUpMode;
-      document.getElementById('auth-title').innerText = isSignUpMode ? "Create Garz Account" : "Garz Manager Login";
-      document.getElementById('auth-toggle-btn').innerText = isSignUpMode ? "Already have an account? Sign In" : "Create an Account";
-  };
-
-  // Run Login or Registration actions
-  window.handleAuthAction = async () => {
-      const email = document.getElementById('auth-email').value;
-      const password = document.getElementById('auth-password').value;
-      
-      try {
-          if (isSignUpMode) {
-              await createUserWithEmailAndPassword(auth, email, password);
-              alert("Manager account created successfully!");
-          } else {
-              await signInWithEmailAndPassword(auth, email, password);
-          }
-      } catch (error) {
-          alert(error.message);
-      }
-  };
-
-  // Global log-out trigger connected to sidebar click
-  window.handleSignOut = () => {
-      signOut(auth);
-  };
-
-  // Real-time listener guarding dashboard views
-  onAuthStateChanged(auth, (user) => {
-      const overlay = document.getElementById('auth-overlay');
-      const appContent = document.getElementById('main-app-content');
-      
-      if (user) {
-          currentUser = user;
-          if (overlay) overlay.style.display = 'none';       // Hide the login screen
-          if (appContent) appContent.style.display = 'flex';   // Show your dashboard
-          
-          // Display email prefix inside sidebar markup profile area
-          const emailDisplay = document.getElementById('user-email-display');
-          if (emailDisplay) emailDisplay.innerText = user.email.split('@')[0];
-          
-          loadUserDataPipeline(user.uid);
-      } else {
-          currentUser = null;
-          if (overlay) overlay.style.display = 'flex';       // Bring back the login screen
-          if (appContent) appContent.style.display = 'none';   // Block dashboard visibility
-      }
-  });
-
-  // Isolated database collection pipeline tracking user UID records
-  async function loadUserDataPipeline(uid) {
-      console.log("Logged in user ID container:", uid);
-  }
-</script>
-
+<!-- MAIN APP DASHBOARD CONTENT (HIDDEN BY DEFAULT) -->
 <div class="app" id="main-app-content" style="display: none;">
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-
         <div class="brand">
             <div class="brand-mark">G</div>
-
             <div>
                 <h1>GARZ</h1>
                 <span>Client Manager</span>
@@ -176,136 +56,126 @@
         </div>
 
         <nav>
-            <button class="nav-item active" data-page="dashboard">
-                <span>⌂</span>
-                Dashboard
-            </button>
-
-            <button class="nav-item" data-page="orders">
-                <span>▣</span>
-                Orders
-            </button>
-
-            <button class="nav-item" data-page="clients">
-                <span>♙</span>
-                Clients
-            </button>
-
-            <button class="nav-item" data-page="calendar">
-                <span>◷</span>
-                Calendar
-            </button>
-
-            <button class="nav-item" data-page="analytics">
-                <span>↗</span>
-                Analytics
-            </button>
+            <button class="nav-item active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+            <button class="nav-item" data-page="orders"><span>▣</span> Orders</button>
+            <button class="nav-item" data-page="clients"><span>♙</span> Clients</button>
+            <button class="nav-item" data-page="calendar"><span>◷</span> Calendar</button>
+            <button class="nav-item" data-page="analytics"><span>↗</span> Analytics</button>
         </nav>
 
-        <div class="sidebar-bottom" onclick="handleSignOut()" style="cursor: pointer;" title="Click to Logout">
+        <div class="sidebar-bottom" id="sidebar-logout-trigger" style="cursor: pointer;" title="Click to Logout">
             <div class="profile">
                 <div class="avatar">G</div>
-
                 <div>
                     <strong id="user-email-display">Garz</strong>
                     <small>Owner (Logout)</small>
                 </div>
             </div>
         </div>
-
     </aside>
 
-
-    <!-- MAIN -->
+    <!-- MAIN PANEL -->
     <main class="main">
-
         <header class="topbar">
-
             <div>
                 <h2 id="page-title">Dashboard</h2>
-
-                <p id="page-description">
-                    Here's what's happening with your business.
-                </p>
+                <p id="page-description">Here's what's happening with your business.</p>
             </div>
-
             <div class="top-actions">
-
-                <button class="secondary-btn" id="search-btn">
-                    Search
-                    <kbd>⌘ K</kbd>
-                </button>
-
-                <button class="primary-btn" id="new-order-btn">
-                    + New Order
-                </button>
-
+                <button class="secondary-btn" id="search-btn">Search <kbd>⌘ K</kbd></button>
+                <button class="primary-btn" id="new-order-btn">+ New Order</button>
             </div>
-
         </header>
 
-
-        <!-- DASHBOARD -->
+        <!-- DASHBOARD PAGE -->
         <section class="page active" id="dashboard-page">
-
             <div class="stats-grid">
-
                 <div class="stat-card">
-                    <div class="stat-top">
-                        <span>Active Orders</span>
-                        <div class="stat-icon purple">↗</div>
-                    </div>
-
-                    <strong id="stat-active">0</strong>
-                    <small>Currently working on</small>
+                    <div class="stat-top"><span>Active Orders</span><div class="stat-icon purple">↗</div></div>
+                    <strong id="stat-active">0</strong><small>Currently working on</small>
                 </div>
-
-
                 <div class="stat-card">
-                    <div class="stat-top">
-                        <span>Pending</span>
-                        <div class="stat-icon orange">◷</div>
-                    </div>
-
-                    <strong id="stat-pending">0</strong>
-                    <small>Waiting to be started</small>
+                    <div class="stat-top"><span>Pending</span><div class="stat-icon orange">◷</div></div>
+                    <strong id="stat-pending">0</strong><small>Waiting to be started</small>
                 </div>
-
-
                 <div class="stat-card">
-                    <div class="stat-top">
-                        <span>Revenue</span>
-                        <div class="stat-icon green">€</div>
-                    </div>
-
-                    <strong id="stat-revenue">€0.00</strong>
-                    <small>Total paid</small>
+                    <div class="stat-top"><span>Revenue</span><div class="stat-icon green">€</div></div>
+                    <strong id="stat-revenue">€0.00</strong><small>Total paid</small>
                 </div>
-
-
                 <div class="stat-card">
-                    <div class="stat-top">
-                        <span>Clients</span>
-                        <div class="stat-icon blue">♙</div>
-                    </div>
-
-                    <strong id="stat-clients">0</strong>
-                    <small>Total clients</small>
+                    <div class="stat-top"><span>Clients</span><div class="stat-icon blue">♙</div></div>
+                    <strong id="stat-clients">0</strong><small>Total clients</small>
                 </div>
-
             </div>
 
             <div class="dashboard-grid">
-
                 <div class="card">
                     <div class="card-header">
-                        <div>
-                            <h3>Recent Orders</h3>
-                            <p>Your latest projects</p>
-                        </div>
+                        <div><h3>Recent Orders</h3><p>Your latest projects</p></div>
                         <button class="text-btn" data-page-link="orders">View all</button>
                     </div>
                     <div id="recent-orders"></div>
                 </div>
-
                 <div class="card">
+                    <div class="card-header">
+                        <div><h3>Upcoming</h3><p>Deadlines</p></div>
+                    </div>
+                    <div id="upcoming-deadlines"></div>
+                </div>
+            </div>
+
+            <div class="card quick-actions-card">
+                <div class="card-header">
+                    <div><h3>Quick Actions</h3><p>Get things done faster</p></div>
+                </div>
+                <div class="quick-actions">
+                    <button id="quick-order"><span>+</span> New Order</button>
+                    <button id="quick-client"><span>♙</span> Add Client</button>
+                    <button data-page-link="calendar"><span>◷</span> View Calendar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ORDERS PAGE -->
+        <section class="page" id="orders-page">
+            <div class="page-tools">
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input id="order-search" type="text" placeholder="Search orders...">
+                </div>
+                <select id="status-filter">
+                    <option value="all">All statuses</option>
+                    <option value="Inquiry">Inquiry</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Review">Review</option>
+                    <option value="Revisions">Revisions</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Paid">Paid</option>
+                </select>
+            </div>
+            <div class="card">
+                <div id="orders-table"></div>
+            </div>
+        </section>
+
+        <!-- CLIENTS PAGE -->
+        <section class="page" id="clients-page">
+            <div class="page-tools">
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input id="client-search" type="text" placeholder="Search clients...">
+                </div>
+                <button class="primary-btn" id="add-client-btn">+ Add Client</button>
+            </div>
+            <div class="clients-grid" id="clients-grid"></div>
+        </section>
+    </main>
+</div>
+
+<!-- CONNECTING SEPARATED BACKGROUND LOGIC FILES -->
+<script type="module" src="auth.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
