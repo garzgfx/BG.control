@@ -2290,3 +2290,40 @@ function renderAll() {
 ============================================ */
 
 renderAll();
+        // ... (all your existing code for navigation, modals, and buttons is above here) ...
+        
+        const data = {
+            name: document.getElementById("client-name").value.trim(),
+            discord: document.getElementById("client-discord").value
+        };
+        
+        // Make sure your addEventListener function closes neatly like this:
+    }
+);
+
+
+// ============================================
+//   PASTE THE NEW FIREBASE BLOCK RIGHT HERE (THE VERY BOTTOM!)
+// ============================================
+
+window.initializeUserDashboardSession = (uid) => {
+    console.log("Initializing separate sandbox for user:", uid);
+    
+    const USER_DB_KEY = `garz_manager_user_${uid}`;
+    
+    let userData = JSON.parse(localStorage.getItem(USER_DB_KEY)) || {
+        clients: [],
+        orders: [],
+        nextOrderNumber: 1
+    };
+    
+    db = userData;
+    
+    window.saveDB = function() {
+        localStorage.setItem(USER_DB_KEY, JSON.stringify(db));
+    }
+    
+    if (typeof renderAll === "function") {
+        renderAll();
+    }
+};
