@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BG.console</title>
+    <title>Garz Manager</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <a href="/" class="logo">
-        <img src="Assets/garz logo.png" alt="Garz Logo">
-    </a>
-</header>
+<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
 <!-- LOGIN SCREEN (shown when not authenticated) -->
 <div id="login-screen" class="login-screen">
@@ -31,15 +27,21 @@
 <div class="app">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
 
-        <div class="brand">
-            <div class="brand-mark">G</div>
+        <div class="sidebar-header">
+            <div class="brand">
+                <div class="brand-mark">G</div>
 
-            <div>
-                <h1>BG.control</h1>
-                <span>Client Manager</span>
+                <div>
+                    <h1>BG.control</h1>
+                    <span>Client Manager</span>
+                </div>
             </div>
+
+            <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">
+                ×
+            </button>
         </div>
 
         <nav>
@@ -98,12 +100,18 @@
 
         <header class="topbar">
 
-            <div>
-                <h2 id="page-title">Dashboard</h2>
+            <div class="topbar-title-wrap">
+                <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open menu">
+                    ☰
+                </button>
 
-                <p id="page-description">
-                    Here's what's happening with your business.
-                </p>
+                <div>
+                    <h2 id="page-title">Dashboard</h2>
+
+                    <p id="page-description">
+                        Here's what's happening with your business.
+                    </p>
+                </div>
             </div>
 
             <div class="top-actions">
