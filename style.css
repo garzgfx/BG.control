@@ -1,414 +1,461 @@
-/* =========================================================
-   GARZ MANAGER — MOBILE REDESIGN
-   ========================================================= */
-
 @media (max-width: 750px) {
 
-    /* ---------- BASE ---------- */
+    /* ================================
+       MOBILE BASE
+    ================================ */
 
-    html,
     body {
-        width: 100%;
-        min-width: 0;
         overflow-x: hidden;
     }
 
-    body {
-        padding-bottom: 76px;
+    .app {
+        width: 100%;
     }
 
-    /* ---------- SIDEBAR → BOTTOM NAV ---------- */
+
+    /* ================================
+       MOBILE SIDEBAR
+       Bottom navigation instead of
+       crushing the sidebar
+    ================================ */
 
     .sidebar {
         position: fixed;
+
         left: 0;
         right: 0;
-        top: auto;
         bottom: 0;
+        top: auto;
 
         width: 100%;
-        height: 68px;
+        height: 72px;
 
         padding: 7px 10px;
-
-        background: rgba(10, 11, 15, .96);
-        border-right: 0;
-        border-top: 1px solid var(--border);
 
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
 
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
+        background: rgba(10, 11, 15, .97);
+        border-right: 0;
+        border-top: 1px solid var(--border);
+
+        backdrop-filter: blur(16px);
 
         z-index: 1000;
     }
 
-    .brand,
-    .sidebar-bottom {
+
+    /* Hide desktop branding */
+
+    .brand {
         display: none;
     }
 
+
+    /* Navigation becomes bottom bar */
+
     .sidebar nav {
         width: 100%;
-        max-width: 520px;
+        height: 100%;
 
         display: grid;
         grid-template-columns: repeat(5, 1fr);
+
+        align-items: center;
         gap: 4px;
     }
 
+
     .nav-item {
-        min-width: 0;
-        height: 54px;
+        width: 100%;
+        height: 58px;
 
-        padding: 6px 3px;
+        padding: 6px 2px;
 
-        border-radius: 12px;
+        border-radius: 10px;
 
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 3px;
+
+        gap: 4px;
+
+        color: #777f90;
 
         font-size: 9px;
-        font-weight: 600;
 
         text-align: center;
     }
 
+
     .nav-item span {
         width: auto;
-        font-size: 19px;
-        line-height: 20px;
+
+        font-size: 18px;
+
+        line-height: 1;
     }
 
+
     .nav-item.active {
+        color: white;
+
         background:
             linear-gradient(
                 180deg,
-                rgba(139, 92, 246, .20),
-                rgba(139, 92, 246, .06)
+                rgba(139,92,246,.18),
+                rgba(139,92,246,.06)
             );
     }
 
-    /* ---------- MAIN ---------- */
 
-    .main {
-        width: 100%;
-        margin-left: 0;
-
-        min-height: calc(100vh - 68px);
-
-        padding: 18px 14px 25px;
+    .nav-item:hover {
+        transform: none;
     }
 
-    /* ---------- TOPBAR ---------- */
+
+    /* Hide desktop profile */
+
+    .sidebar-bottom {
+        display: none;
+    }
+
+
+    /* ================================
+       MAIN
+    ================================ */
+
+    .main {
+        margin-left: 0;
+
+        min-height: 100vh;
+
+        padding:
+            20px
+            16px
+            95px;
+    }
+
+
+    /* ================================
+       TOP BAR
+    ================================ */
 
     .topbar {
-        margin-bottom: 20px;
+        margin-bottom: 22px;
 
         align-items: center;
+
         gap: 12px;
     }
 
+
     .topbar h2 {
         font-size: 23px;
-        line-height: 1.15;
     }
+
 
     .topbar p {
-        max-width: 230px;
+        max-width: 240px;
 
-        margin-top: 5px;
+        font-size: 11px;
 
-        font-size: 10px;
         line-height: 1.45;
     }
+
 
     .top-actions {
         flex-shrink: 0;
     }
 
+
+    /* Search isn't useful here,
+       keep the New Order button */
+
     .top-actions .secondary-btn {
         display: none;
     }
 
+
     .top-actions .primary-btn {
-        padding: 10px 12px;
+        padding: 9px 11px;
+
         font-size: 10px;
+
         white-space: nowrap;
     }
 
-    /* ---------- STATS ---------- */
+
+    /* ================================
+       STATS
+    ================================ */
 
     .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+
         gap: 9px;
 
         margin-bottom: 12px;
     }
 
+
     .stat-card {
-        min-width: 0;
         padding: 13px;
 
         border-radius: 13px;
     }
 
-    .stat-card > strong {
-        margin-top: 8px;
-
-        font-size: 20px;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .stat-card > small {
-        font-size: 8px;
-    }
 
     .stat-top span {
         font-size: 9px;
     }
 
+
     .stat-icon {
-        width: 27px;
-        height: 27px;
-        flex-shrink: 0;
+        width: 26px;
+        height: 26px;
 
         font-size: 11px;
     }
 
-    /* ---------- DASHBOARD ---------- */
 
-    .dashboard-grid,
-    .analytics-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
+    .stat-card > strong {
+        margin-top: 8px;
+
+        font-size: 20px;
     }
+
+
+    .stat-card > small {
+        font-size: 8px;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    /* ================================
+       DASHBOARD
+    ================================ */
 
     .dashboard-grid {
-        margin-bottom: 10px;
+        grid-template-columns: 1fr;
+
+        gap: 12px;
     }
 
-    .card {
-        border-radius: 13px;
-    }
 
     .card-header {
-        padding: 13px 14px;
+        padding: 14px;
     }
+
 
     .card-header h3 {
         font-size: 12px;
     }
 
+
     .card-header p {
         font-size: 9px;
     }
 
-    .quick-actions-card {
-        margin-top: 10px;
-    }
+
+    /* ================================
+       QUICK ACTIONS
+    ================================ */
 
     .quick-actions {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+
         gap: 7px;
 
         padding: 10px;
     }
 
+
     .quick-actions button {
-        min-height: 52px;
+        padding: 12px 8px;
 
-        padding: 11px 13px;
+        font-size: 9px;
 
-        display: flex;
-        align-items: center;
-        gap: 11px;
-    }
-
-    .quick-actions span {
-        margin: 0;
-
-        width: 25px;
-
-        font-size: 17px;
         text-align: center;
     }
 
-    /* ---------- ORDER ROWS ---------- */
 
-    .order-row {
-        grid-template-columns: 1fr auto;
+    .quick-actions span {
+        margin-bottom: 6px;
+
+        font-size: 16px;
+    }
+
+
+    /* ================================
+       ORDERS
+    ================================ */
+
+    .page-tools {
+        flex-direction: column;
+
         gap: 8px;
 
-        padding: 13px 14px;
+        margin-bottom: 12px;
     }
+
+
+    .page-tools select {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+
+    .search-box {
+        min-height: 40px;
+    }
+
+
+    /*
+       Turn each order into a compact
+       card instead of a giant row.
+    */
+
+    .order-row {
+        display: grid;
+
+        grid-template-columns: 1fr auto;
+
+        gap: 9px;
+
+        padding: 13px;
+
+        position: relative;
+    }
+
 
     .order-row > div:nth-child(2) {
         grid-column: 2;
+
         grid-row: 1;
     }
 
+
     .order-row > div:nth-child(3) {
         grid-column: 1;
+
         grid-row: 2;
     }
 
+
     .order-row > div:nth-child(4) {
         grid-column: 2;
+
         grid-row: 2;
 
         text-align: right;
     }
 
+
     .order-row > div:nth-child(5) {
         grid-column: 1 / -1;
+
         grid-row: 3;
     }
 
-    .order-name {
-        font-size: 11px;
-    }
-
-    .order-meta {
-        font-size: 9px;
-    }
-
-    .order-price {
-        font-size: 11px;
-    }
 
     .status-select {
-        max-width: 125px;
+        max-width: 115px;
+
         padding: 7px 8px;
 
         font-size: 9px;
     }
 
-    .order-actions {
-        justify-content: flex-start;
 
-        padding-top: 4px;
-        border-top: 1px solid var(--border);
-    }
-
-    .icon-btn {
-        width: 34px;
-        height: 34px;
-    }
-
-    /* ---------- SEARCH / TOOLS ---------- */
-
-    .page-tools {
-        width: 100%;
-
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-
-        margin-bottom: 11px;
-    }
-
-    .search-box {
-        width: 100%;
-        min-height: 42px;
-    }
-
-    .search-box input {
-        min-width: 0;
+    .order-name {
         font-size: 11px;
     }
 
-    .page-tools select {
-        width: 100%;
-        min-width: 0;
 
-        min-height: 42px;
-
-        font-size: 10px;
-    }
-
-    .page-tools > .primary-btn {
-        width: 100%;
-        min-height: 42px;
-    }
-
-    /* ---------- CLIENTS ---------- */
-
-    .clients-grid {
-        grid-template-columns: 1fr;
-        gap: 9px;
-    }
-
-    .client-card {
-        padding: 14px;
-        border-radius: 13px;
-    }
-
-    .client-avatar {
-        width: 37px;
-        height: 37px;
-
-        margin-bottom: 10px;
-    }
-
-    .client-card h3 {
-        font-size: 12px;
-    }
-
-    .client-discord {
+    .order-meta {
         font-size: 9px;
     }
 
+
+    .order-price {
+        font-size: 11px;
+    }
+
+
+    .order-actions {
+        width: 100%;
+
+        justify-content: flex-end;
+
+        padding-top: 7px;
+
+        border-top: 1px solid var(--border);
+    }
+
+
+    .icon-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+
+    /* ================================
+       CLIENTS
+    ================================ */
+
+    .clients-grid {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+
+    .client-card {
+        padding: 15px;
+    }
+
+
     .client-stats {
         gap: 35px;
-        margin-top: 14px;
     }
 
-    .client-stat strong {
-        font-size: 13px;
-    }
-
-    .client-stat span {
-        font-size: 8px;
-    }
 
     .client-actions {
-        margin-top: 13px;
-        padding-top: 11px;
+        gap: 8px;
     }
 
-    .client-actions .secondary-btn {
-        min-height: 34px;
-        padding: 8px;
-        font-size: 10px;
-    }
 
-    /* ---------- CALENDAR ---------- */
+    /* ================================
+       CALENDAR
+    ================================ */
 
     .calendar-header {
-        padding: 13px;
+        padding: 14px;
     }
+
 
     .calendar-header h3 {
         font-size: 13px;
     }
 
+
     .calendar-header button {
-        width: 34px;
-        height: 34px;
+        width: 30px;
+        height: 30px;
     }
+
 
     .calendar-weekdays {
         padding: 0 8px;
     }
+
 
     .calendar-weekdays span {
         padding: 8px 2px;
@@ -416,46 +463,67 @@
         font-size: 8px;
     }
 
+
     .calendar-grid {
         padding: 8px;
+
         gap: 3px;
     }
 
+
     .calendar-day {
-        min-height: 62px;
+        min-height: 58px;
 
         padding: 6px;
 
         border-radius: 7px;
     }
 
+
     .calendar-number {
         font-size: 9px;
     }
 
+
     .calendar-order {
-        margin-top: 5px;
+        margin-top: 4px;
 
-        padding: 4px;
+        padding: 3px;
 
-        font-size: 7px;
+        font-size: 6px;
+
+        border-radius: 4px;
     }
 
-    /* ---------- ANALYTICS ---------- */
+
+    /* ================================
+       ANALYTICS
+    ================================ */
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
 
     .chart {
         min-height: 190px;
 
-        padding: 15px 10px;
+        padding: 14px;
 
         gap: 5px;
     }
+
 
     .chart-bar {
         min-width: 7px;
     }
 
-    /* ---------- MODALS ---------- */
+
+    /* ================================
+       MODAL
+    ================================ */
 
     .modal-overlay {
         padding: 10px;
@@ -463,161 +531,69 @@
         align-items: flex-end;
     }
 
+
     .modal {
         width: 100%;
-        max-width: none;
 
         max-height: 92vh;
 
         padding: 17px;
 
-        border-radius: 18px 18px 12px 12px;
-
-        animation: mobileModalIn .2s ease;
+        border-radius: 17px 17px 12px 12px;
     }
 
-    @keyframes mobileModalIn {
-        from {
-            opacity: 0;
-            transform: translateY(25px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
 
     .modal-header {
-        margin-bottom: 17px;
+        margin-bottom: 16px;
     }
+
 
     .modal-header h3 {
         font-size: 16px;
     }
 
-    .modal-header p {
-        font-size: 9px;
-    }
-
-    .close-btn {
-        width: 34px;
-        height: 34px;
-
-        display: grid;
-        place-items: center;
-
-        border-radius: 9px;
-
-        background: var(--surface-2);
-
-        font-size: 20px;
-    }
 
     .form-grid {
         grid-template-columns: 1fr;
+
         gap: 0;
     }
 
+
     form label {
-        margin-bottom: 12px;
         font-size: 9px;
+
+        margin-bottom: 12px;
     }
+
 
     form input,
     form select,
     form textarea {
-        min-height: 42px;
-
-        margin-top: 5px;
-
-        padding: 10px;
-
-        font-size: 11px;
+        font-size: 13px;
     }
 
-    form textarea {
-        min-height: 85px;
-    }
 
     .modal-actions {
         position: sticky;
-        bottom: -17px;
 
-        margin: 17px -17px -17px;
-        padding: 12px 17px;
+        bottom: 0;
 
-        background: rgba(17, 20, 26, .96);
-        border-top: 1px solid var(--border);
+        padding-top: 10px;
 
-        gap: 8px;
+        background: #11141a;
     }
 
-    .modal-actions button {
-        flex: 1;
-        min-height: 42px;
-    }
 
-    /* ---------- TOAST ---------- */
+    /* ================================
+       TOAST
+    ================================ */
 
     #toast {
-        right: 12px;
-        left: 12px;
-        bottom: 80px;
+        left: 16px;
+        right: 16px;
+        bottom: 84px;
 
         text-align: center;
-
-        font-size: 10px;
-    }
-}
-
-
-/* =========================================================
-   SMALL PHONES
-   ========================================================= */
-
-@media (max-width: 430px) {
-
-    .main {
-        padding-left: 11px;
-        padding-right: 11px;
-    }
-
-    .topbar h2 {
-        font-size: 21px;
-    }
-
-    .topbar p {
-        max-width: 190px;
-    }
-
-    .top-actions .primary-btn {
-        padding: 9px 10px;
-        font-size: 9px;
-    }
-
-    .stat-card {
-        padding: 11px;
-    }
-
-    .stat-card > strong {
-        font-size: 18px;
-    }
-
-    .calendar-day {
-        min-height: 54px;
-        padding: 5px;
-    }
-
-    .calendar-order {
-        font-size: 6px;
-    }
-
-    .nav-item {
-        font-size: 8px;
-    }
-
-    .nav-item span {
-        font-size: 17px;
     }
 }
