@@ -275,6 +275,84 @@ const navItems =
         ".nav-item"
     );
 
+const sidebar =
+    document.getElementById(
+        "sidebar"
+    );
+
+const sidebarBackdrop =
+    document.getElementById(
+        "sidebar-backdrop"
+    );
+
+const sidebarToggle =
+    document.getElementById(
+        "sidebar-toggle"
+    );
+
+const sidebarClose =
+    document.getElementById(
+        "sidebar-close"
+    );
+
+function setSidebarOpen(isOpen) {
+
+    if (!sidebar || !sidebarBackdrop) return;
+
+    sidebar.classList.toggle(
+        "open",
+        isOpen
+    );
+
+    sidebarBackdrop.classList.toggle(
+        "visible",
+        isOpen
+    );
+
+    document.body.classList.toggle(
+        "menu-open",
+        isOpen
+    );
+
+}
+
+sidebarToggle?.addEventListener(
+    "click",
+    () => setSidebarOpen(
+        !sidebar.classList.contains("open")
+    )
+);
+
+sidebarClose?.addEventListener(
+    "click",
+    () => setSidebarOpen(false)
+);
+
+sidebarBackdrop?.addEventListener(
+    "click",
+    () => setSidebarOpen(false)
+);
+
+document.addEventListener(
+    "keydown",
+    event => {
+        if (event.key === "Escape") {
+            setSidebarOpen(false);
+        }
+    }
+);
+
+navItems.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+            showPage(button.dataset.page);
+            setSidebarOpen(false);
+        }
+    );
+
+});
 
 const pageInfo = {
 
@@ -304,19 +382,6 @@ const pageInfo = {
     ]
 
 };
-
-
-navItems.forEach(button => {
-
-    button.addEventListener(
-        "click",
-        () =>
-            showPage(
-                button.dataset.page
-            )
-    );
-
-});
 
 
 document
